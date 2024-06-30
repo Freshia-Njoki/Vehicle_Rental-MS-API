@@ -1,15 +1,15 @@
 import { Context } from "hono";
-import { OrderMenuItemsService, getOrderMenuItemService, createOrderMenuItemService, updateOrderMenuItemService, deleteOrderMenuItemService,getMoreMenuOrdersInfoService } from "./locationBranches.service";
+import { LocationBranchService, getLocationBranchService, createLocationBranchService, updateLocationBranchService, deleteLocationBranchService,getMoreLocationBranchInfoService } from "./locationBranches.service";
 
-export const listOrderMenuItems = async (c: Context) => {
+export const listLocationBranchs = async (c: Context) => {
     try {
-        //limit the number of OrderMenuItems to be returned
+        //limit the number of locationBranch to be returned
 
         const limit = Number(c.req.query('limit'))
 
-        const data = await OrderMenuItemsService(limit);
+        const data = await LocationBranchService(limit);
         if (data == null || data.length == 0) {
-            return c.text("OrderMenuItem not found", 404)
+            return c.text("locationBranch not found", 404)
         }
         return c.json(data, 200);
     } catch (error: any) {
@@ -17,43 +17,43 @@ export const listOrderMenuItems = async (c: Context) => {
     }
 }
 
-export const getOrderMenuItem = async (c: Context) => {
+export const getLocationBranch = async (c: Context) => {
     const id = parseInt(c.req.param("id"));
     if (isNaN(id)) return c.text("Invalid ID", 400);
 
-    const OrderMenuItem = await getOrderMenuItemService(id);
-    if (OrderMenuItem == undefined) {
-        return c.text("OrderMenuItem not found", 404);
+    const locationBranch = await getLocationBranchService(id);
+    if (locationBranch == undefined) {
+        return c.text("locationBranch not found", 404);
     }
-    return c.json(OrderMenuItem, 200);
+    return c.json(locationBranch, 200);
 }
-export const createOrderMenuItem = async (c: Context) => {
+export const createLocationBranch = async (c: Context) => {
     try {
-        const OrderMenuItem = await c.req.json();
-        const createdOrderMenuItem = await createOrderMenuItemService(OrderMenuItem);
+        const locationBranch = await c.req.json();
+        const createdLocationBranch = await createLocationBranchService(locationBranch);
 
 
-        if (!createdOrderMenuItem) return c.text("OrderMenuItem not created", 404);
-        return c.json({ msg: createdOrderMenuItem }, 201);
+        if (!createdLocationBranch) return c.text("locationBranch not created", 404);
+        return c.json({ msg: createdLocationBranch }, 201);
 
     } catch (error: any) {
         return c.json({ error: error?.message }, 400)
     }
 }
 
-export const updateOrderMenuItem = async (c: Context) => {
+export const updateLocationBranch = async (c: Context) => {
     const id = parseInt(c.req.param("id"));
     if (isNaN(id)) return c.text("Invalid ID", 400);
 
-    const OrderMenuItem = await c.req.json();
+    const locationBranch = await c.req.json();
     try {
-        // search for the OrderMenuItem
-        const searchedOrderMenuItem = await getOrderMenuItemService(id);
-        if (searchedOrderMenuItem == undefined) return c.text("OrderMenuItem not found", 404);
+        // search for the locationBranch
+        const searchedLocationBranch = await getLocationBranchService(id);
+        if (searchedLocationBranch == undefined) return c.text("locationBranch not found", 404);
         // get the data and update it
-        const res = await updateOrderMenuItemService(id, OrderMenuItem);
+        const res = await updateLocationBranchService(id, locationBranch);
         // return a success message
-        if (!res) return c.text("OrderMenuItem not updated", 404);
+        if (!res) return c.text("locationBranch not updated", 404);
 
         return c.json({ msg: res }, 201);
     } catch (error: any) {
@@ -61,17 +61,17 @@ export const updateOrderMenuItem = async (c: Context) => {
     }
 }
 
-export const deleteOrderMenuItem = async (c: Context) => {
+export const deleteLocationBranch = async (c: Context) => {
     const id = Number(c.req.param("id"));
     if (isNaN(id)) return c.text("Invalid ID", 400);
 
     try {
-        //search for the OrderMenuItem
-        const OrderMenuItem = await getOrderMenuItemService(id);
-        if (OrderMenuItem == undefined) return c.text("OrderMenuItem not found", 404);
-        //deleting the OrderMenuItem
-        const res = await deleteOrderMenuItemService(id);
-        if (!res) return c.text("OrderMenuItem not deleted", 404);
+        //search for the locationBranch
+        const locationBranch = await getLocationBranchService(id);
+        if (locationBranch == undefined) return c.text("locationBranch not found", 404);
+        //deleting the locationBranch
+        const res = await deleteLocationBranchService(id);
+        if (!res) return c.text("locationBranch not deleted", 404);
 
         return c.json({ msg: res }, 201);
     } catch (error: any) {
@@ -79,11 +79,11 @@ export const deleteOrderMenuItem = async (c: Context) => {
     }
 }
 
-export const getMenuOrdersInfo = async(c:Context) => {
+export const getLocationBranchInfo = async(c:Context) => {
 
-    const menuOrdersInfo = await getMoreMenuOrdersInfoService();
-    if (menuOrdersInfo == undefined) {
-        return c.text("driversInfo not found", 404);
+    const LocationBranchInfo = await getMoreLocationBranchInfoService();
+    if (LocationBranchInfo == undefined) {
+        return c.text("LocationBranch not found", 404);
     }
-    return c.json(menuOrdersInfo, 200);
+    return c.json(LocationBranchInfo, 200);
 }

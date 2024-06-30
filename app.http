@@ -308,6 +308,35 @@ DELETE http://localhost:8000/api/payment/1
 ###
 
 
+GET http://localhost:8000/api/locationBranchs
+
+###
+
+POST http://localhost:8000/api/locationBranchs
+Content-Type: application/json
+
+{
+     "name": "John Doe",
+    "address": "123 Main St, Springfield, IL",
+    "contact_phone": "+1-555-123-4567"
+}
+
+###
+
+PUT http://localhost:8000/api/locationBranchs/2
+Content-Type: application/json
+
+{
+    "name": "Freshia"
+}
+
+###
+
+GET http://localhost:8000/api/locationBranchs/1
+
+###
+DELETE http://localhost:8000/api/locationBranchs/1
+
 
 
 

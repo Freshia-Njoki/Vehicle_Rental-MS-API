@@ -17,6 +17,7 @@ import { fleetRouter } from './fleet/fleet.router'
 import { vehicleRouter } from './vehicles/vehicles.router'
 import { vehicleSpecRouter } from './vehicle Specifications/vehicleSpec.router'
 import { paymentRouter } from './payments/payment.router'
+import { locationBranchRouter } from './location and Branches/locationBranches.router'
 
 const app = new Hono().basePath('/api')
 
@@ -112,6 +113,7 @@ app.route("/", fleetRouter)
 app.route("/", vehicleRouter)
 app.route("/", vehicleSpecRouter)
 app.route("/", paymentRouter)
+app.route("/", locationBranchRouter)
 
 
 serve({

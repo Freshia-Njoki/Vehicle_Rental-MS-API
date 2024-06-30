@@ -1,24 +1,24 @@
 import { Hono } from "hono";
-import { listOrderMenuItems, getOrderMenuItem, createOrderMenuItem, updateOrderMenuItem, deleteOrderMenuItem, getMenuOrdersInfo } from "./locationBranches.controller"
+import { listLocationBranchs, getLocationBranch, createLocationBranch, updateLocationBranch, deleteLocationBranch, getLocationBranchInfo } from "./locationBranches.controller"
 import { zValidator } from "@hono/zod-validator";
-import { orderMenuItemSchema } from "../validators";
+import { locationSchema } from "../validators";
 import { adminRoleAuth,userRoleAuth, userOrAdminRoleAuth } from "../middleware/bearAuth";
-export const orderMenuItemRouter = new Hono();
+export const locationBranchRouter = new Hono();
 
-//get all OrderMenuItems      api/OrderMenuItems
-orderMenuItemRouter.get("/orderMenuItems",userOrAdminRoleAuth, listOrderMenuItems);
-//get a single OrderMenuItem    api/OrderMenuItems/1
-orderMenuItemRouter.get("/orderMenuItems/:id",adminRoleAuth, getOrderMenuItem)
-// create a OrderMenuItem 
-orderMenuItemRouter.post("/orderMenuItems",userRoleAuth, zValidator('json', orderMenuItemSchema, (result, c) => {
+//get all locationBranchs      api/locationBranchs
+locationBranchRouter.get("/locationBranchs",listLocationBranchs);
+//get a single locationBranch    api/locationBranchs/1
+locationBranchRouter.get("/locationBranchs/:id",getLocationBranch)
+// create a locationBranch 
+locationBranchRouter.post("/locationBranchs", zValidator('json', locationSchema, (result, c) => {
     if (!result.success) {
         return c.json(result.error, 400)
     }
-}), createOrderMenuItem)
-//update a OrderMenuItem
-orderMenuItemRouter.put("/orderMenuItems/:id",userRoleAuth, updateOrderMenuItem)
+}), createLocationBranch)
+//update a locationBranch
+locationBranchRouter.put("/locationBranchs/:id", updateLocationBranch)
 
-orderMenuItemRouter.delete("/orderMenuItems/:id",userRoleAuth, deleteOrderMenuItem)
-orderMenuItemRouter.get("/menuOrdersInfo",userOrAdminRoleAuth, getMenuOrdersInfo)
+locationBranchRouter.delete("/locationBranchs/:id",deleteLocationBranch)
+locationBranchRouter.get("/locationBranchsInfo",getLocationBranchInfo)
 
-//https:domai.com/api/OrderMenuItems?limit=10
+//https:domai.com/api/locationBranchs?limit=10
