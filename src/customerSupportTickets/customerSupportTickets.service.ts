@@ -1,58 +1,60 @@
 import { eq, sql } from "drizzle-orm";
 import db from "../drizzle/db";
 import {
-  TICity,
-  TSCity,
-  CitiesTable
+  TICustomerSupportTicket,
+  TSCustomerSupportTicket,
+  CustomerSupportTicketsTable
 } from "../drizzle/schema";
 
-export const CityService = async (limit?: number): Promise<TSCity[] | null> => {
+export const CustomerSupportTicketService = async (limit?: number): Promise<TSCustomerSupportTicket[] | null> => {
   if (limit) {
-    return await db.query.CitiesTable.findMany({
+    return await db.query.CustomerSupportTicketsTable.findMany({
       limit: limit,
     });
   }
-  return await db.query.CitiesTable.findMany();
+  return await db.query.CustomerSupportTicketsTable.findMany();
 };
 
-export const getCityService = async (
+export const getCustomerSupportTicketService = async (
   id: number
-): Promise<TICity | undefined> => {
-  return await db.query.CitiesTable.findFirst({
-    where: eq(CitiesTable.id, id),
+): Promise<TICustomerSupportTicket | undefined> => {
+  return await db.query.CustomerSupportTicketsTable.findFirst({
+    where: eq(CustomerSupportTicketsTable.id, id),
   });
 };
 
-export const createCityService = async (City: TICity) => {
-  await db.insert(CitiesTable).values(City);
-  return "City created successfully";
+export const createCustomerSupportTicketService = async (CustomerSupportTicket : TICustomerSupportTicket) => {
+  await db.insert(CustomerSupportTicketsTable).values(CustomerSupportTicket );
+  return "CustomerSupportTicket  created successfully";
 };
 
-export const updateCityService = async (id: number, City: TICity) => {
-  await db.update(CitiesTable).set(City).where(eq(CitiesTable.id, id));
-  return "City updated successfully";
+export const updateCustomerSupportTicketService = async (id: number, CustomerSupportTicket : TICustomerSupportTicket) => {
+  await db.update(CustomerSupportTicketsTable).set(CustomerSupportTicket ).where(eq(CustomerSupportTicketsTable.id, id));
+  return "CustomerSupportTicket  updated successfully";
 };
 
-export const deleteCityService = async (id: number) => {
-  await db.delete(CitiesTable).where(eq(CitiesTable.id, id));
-  return "City deleted successfully";
+export const deleteCustomerSupportTicketService = async (id: number) => {
+  await db.delete(CustomerSupportTicketsTable).where(eq(CustomerSupportTicketsTable.id, id));
+  return "CustomerSupportTicket  deleted successfully";
 };
 
-export const getMoreCityInfoService = async (id: number) => {
-  return await db.query.CitiesTable.findMany({
+export const getMoreCustomerSupportTicketInfoService = async (id: number) => {
+  return await db.query.CustomerSupportTicketsTable.findMany({
     columns: {
-      address: false
+      description:true,
+      status:true,
+      subject:true
     },
     with: {
-      state: {
+      user : {
         columns: {
-          name: true
+          full_name: true
         },
         with: {
-          city: {
+          booking : {
             columns: {
-              name: true,
-              restaurant: true
+              booking_status:true,
+              return_date:true
             }
           }
         }

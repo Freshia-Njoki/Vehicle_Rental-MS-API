@@ -42,7 +42,7 @@ export const paymentsSchema = z.object({
     payment_method: z.string(),
     transaction_id: z.string()
 })
-export const customerSupportTicketsSchema = z.object({
+export const customerSupportTicketSchema = z.object({
     user_id: z.number(),
     subject: z.string(),
     description: z.string(),

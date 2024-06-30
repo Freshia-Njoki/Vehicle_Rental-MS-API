@@ -10,10 +10,9 @@ import { prometheus } from '@hono/prometheus'
 import { html, raw } from 'hono/html'
 
 import { userRouter } from './users/users.router'
-import { ordersRouter } from './fleet/fleet.router'
 import { bookingRouter} from './bookings/booking.router'
-import { orderMenuItemRouter } from './location and Branches/locationBranches.router'
 import { authRouter } from './auth/auth.router'
+import { customerSupportTicketRouter } from './customerSupportTickets/customerSupportTickets.router'
 
 const app = new Hono().basePath('/api')
 
@@ -103,8 +102,8 @@ app.get('/ok', (c) => {
 
 app.route("/", userRouter)   // /users
 app.route("/", bookingRouter)
-app.route("/", orderMenuItemRouter)
 app.route("auth/", authRouter)   // api/auth/register   or api/auth/login
+app.route("/", customerSupportTicketRouter)
 
 
 serve({

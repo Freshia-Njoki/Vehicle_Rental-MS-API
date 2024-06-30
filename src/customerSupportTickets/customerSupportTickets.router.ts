@@ -1,24 +1,23 @@
 import { Hono } from "hono";
-import { listCities, getCity, createCity, updateCity, deleteCity, getMoreCityInfo } from "./customerSupportTickets.controller"
+import { listCustomerSupportTicket, getCustomerSupportTicket , createCustomerSupportTicket , updateCustomerSupportTicket , deleteCustomerSupportTicket , getMoreCustomerSupportTicketInfo } from "./customerSupportTickets.controller"
 import { zValidator } from "@hono/zod-validator";
-import { citySchema } from "../validators";
+import { customerSupportTicketSchema } from "../validators";
 import { adminRoleAuth } from "../middleware/bearAuth";
-export const cityRouter = new Hono();
+export const customerSupportTicketRouter = new Hono();
 
-//get all city      api/city
-cityRouter.get("/city", listCities);
-//get a single City    api/city/1
-cityRouter.get("/city/:id", getCity)
-// create a City 
-cityRouter.post("/city", adminRoleAuth,zValidator('json', citySchema, (result, c) => {
+//get all CustomerSupportTicket       api/CustomerSupportTicket 
+customerSupportTicketRouter.get("/customerSupportTickets", listCustomerSupportTicket);
+//get a single CustomerSupportTicket     api/CustomerSupportTicket /1
+customerSupportTicketRouter.get("/customerSupportTickets/:id", getCustomerSupportTicket )
+// create a CustomerSupportTicket  
+customerSupportTicketRouter.post("/customerSupportTickets",zValidator('json', customerSupportTicketSchema, (result, c) => {
     if (!result.success) {
         return c.json(result.error, 400)
     }
-}), createCity)
-//update a City
-cityRouter.put("/city/:id",adminRoleAuth, updateCity)
+}), createCustomerSupportTicket )
+//update a CustomerSupportTicket 
+customerSupportTicketRouter.put("/customerSupportTickets/:id",updateCustomerSupportTicket )
 
-cityRouter.delete("/city/:id",adminRoleAuth, deleteCity)
-cityRouter.get("/cityInfo/:id", getMoreCityInfo)
+customerSupportTicketRouter.delete("/customerSupportTickets/:id", deleteCustomerSupportTicket )
+customerSupportTicketRouter.get("/customerSupportTicketsInfo/:id", getMoreCustomerSupportTicketInfo)
 
-//https:domain.com/api/city?limit=10
