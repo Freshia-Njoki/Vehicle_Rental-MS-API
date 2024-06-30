@@ -1,63 +1,56 @@
 import { eq } from "drizzle-orm";
 import db from "../drizzle/db";
-import { TIOrder, TSOrder, OrdersTable, OrderStatusTable } from "../drizzle/schema";
+import { TIFleet, TSFleet, FleetTable, VehiclesTable } from "../drizzle/schema";
 
-export const OrdersService = async (limit?: number): Promise<TSOrder[] | null> => {
+export const FleetService = async (limit?: number): Promise<TSFleet[] | null> => {
     if (limit) {
-        return await db.query.OrdersTable.findMany({
+        return await db.query.FleetTable.findMany({
             limit: limit
         });
     }
-    return await db.query.OrdersTable.findMany();
+    return await db.query.FleetTable.findMany();
 }
 
-export const getOrderService = async (id: number): Promise<TIOrder | undefined> => {
-    return await db.query.OrdersTable.findFirst({
-        where: eq(OrdersTable.id, id)
+export const getFleetService = async (id: number): Promise<TIFleet | undefined> => {
+    return await db.query.FleetTable.findFirst({
+        where: eq(FleetTable.id, id)
     })
 }
 
-export const createOrderService = async (Order: TIOrder) => {
-    await db.insert(OrdersTable).values(Order)
+export const createFleetService = async (Order: TIFleet) => {
+    await db.insert(FleetTable).values(Order)
     return "Order created successfully";
 }
 
-export const updateOrderService = async (id: number, Order: TIOrder) => {
-    await db.update(OrdersTable).set(Order).where(eq(OrdersTable.id, id))
+export const updateFleetService = async (id: number, Order: TIFleet) => {
+    await db.update(FleetTable).set(Order).where(eq(FleetTable.id, id))
     return "Order updated successfully";
 }
 
-export const deleteOrderService = async (id: number) => {
-    await db.delete(OrdersTable).where(eq(OrdersTable.id, id))
+export const deleteFleetService = async (id: number) => {
+    await db.delete(FleetTable).where(eq(FleetTable.id, id))
     return "Order deleted successfully";
 }
 
 
-export const filterOrderService = async (id: number) => {
+export const filterFleetService = async (id: number) => {
     return await db.select({
-        order_menu_item: OrdersTable.order_menu_item,
-        OrderStatusTable: OrderStatusTable.status_catalog
-    }).from(OrdersTable).rightJoin(OrderStatusTable, eq(OrdersTable.id, OrderStatusTable.order_id))
+      maintenance_cost: FleetTable.maintenance_cost,
+      VehiclesTable: VehiclesTable.rental_rate
+    }).from(VehiclesTable).rightJoin(FleetTable, eq(VehiclesTable.id, FleetTable.vehicle_id))
 }
 
 
-export const getMoreOrdersInfoService = async () => {
-    return await db.query.OrdersTable.findMany({
+export const getMoreFleetInfoService = async () => {
+    return await db.query.FleetTable.findMany({
       columns: {
         created_at: true
       },
       with: {
-        users: {
+        vehicles: {
           columns: {
-            contact_phone: true,
-            confirmation_code: true
-          },
-          with: {
-            order: {
-              columns: {
-               driver: true
-              }
-            }
+            rental_rate: true,
+            availability: true
           }
         }
       },

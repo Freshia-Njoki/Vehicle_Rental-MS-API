@@ -57,10 +57,10 @@ export const locationSchema = z.object({
 
 export const fleetSchema = z.object({
     vehicle_id: z.number(),
-    delivery_address_id: z.number(),
+    depreciation_rate: z.number(),
     current_value: z.number(),
     maintenance_cost: z.number(),
-    status: z.number().multipleOf(0.01)
+    status: z.string()
 })
 
 export const loginUserSchema = z.object({

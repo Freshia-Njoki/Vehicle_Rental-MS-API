@@ -13,6 +13,7 @@ import { userRouter } from './users/users.router'
 import { bookingRouter} from './bookings/booking.router'
 import { authRouter } from './auth/auth.router'
 import { customerSupportTicketRouter } from './customerSupportTickets/customerSupportTickets.router'
+import { fleetRouter } from './fleet/fleet.router'
 
 const app = new Hono().basePath('/api')
 
@@ -104,6 +105,7 @@ app.route("/", userRouter)   // /users
 app.route("/", bookingRouter)
 app.route("auth/", authRouter)   // api/auth/register   or api/auth/login
 app.route("/", customerSupportTicketRouter)
+app.route("/", fleetRouter)
 
 
 serve({
