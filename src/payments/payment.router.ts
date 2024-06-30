@@ -1,25 +1,25 @@
 import { Hono } from "hono";
-import { listmenuItem, getMenu, createMenu, updateMenu, deleteMenu, listActiveMenuItems, getMoreMenuInfo} from "./payment.controller"
+import { listPayment, getPayment, createPayment, updatePayment, deletePayment, getMorePaymentInfo} from "./payment.controller"
 import { zValidator } from "@hono/zod-validator";
-import { menuItemSchema } from "../validators";
+import { paymentsSchema } from "../validators";
 import { adminRoleAuth,userOrAdminRoleAuth } from "../middleware/bearAuth";
-export const menuRouter = new Hono();
+export const paymentRouter = new Hono();
 
-//get all menuItem      api/menuItem
-menuRouter.get("/menuItem",userOrAdminRoleAuth, listmenuItem);
-//get a single Menu    api/menuItem/1
-menuRouter.get("/menuItem/:id",userOrAdminRoleAuth, getMenu)
-// create a Menu 
-menuRouter.post("/menuItem",adminRoleAuth, zValidator('json', menuItemSchema, (result, c) => {
+//get all payment      api/payment
+paymentRouter.get("/payment", listPayment);
+//get a single Payment    api/payment/1
+paymentRouter.get("/payment/:id", getPayment)
+// create a Payment 
+paymentRouter.post("/payment", zValidator('json', paymentsSchema, (result, c) => {
     if (!result.success) {
         return c.json(result.error, 400)
     }
-}), createMenu)
-//update a Menu
-menuRouter.put("/menuItem/:id",adminRoleAuth, updateMenu)
+}), createPayment)
+//update a Payment
+paymentRouter.put("/payment/:id", updatePayment)
 
-menuRouter.delete("/menuItem/:id",adminRoleAuth, deleteMenu)
-menuRouter.get("/activeMenuItems",userOrAdminRoleAuth, listActiveMenuItems)
-menuRouter.get("/menuInfo",userOrAdminRoleAuth, getMoreMenuInfo)
+paymentRouter.delete("/payment/:id",deletePayment)
+// PaymentRouter.get("/activepayments",userOrAdminRoleAuth, listActivepayments)
+paymentRouter.get("/PaymentInfo", getMorePaymentInfo)
 
-//https:domai.com/api/menuItem?limit=10
+//https:domai.com/api/payment?limit=10

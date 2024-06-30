@@ -275,6 +275,39 @@ DELETE http://localhost:8000/api/vehicleSpecs/1
 
 ###
 
+GET http://localhost:8000/api/payment
+
+###
+
+POST http://localhost:8000/api/payment
+Content-Type: application/json
+
+{
+      "booking_id": 1,
+    "amount": 150.75,
+    "payment_status": "Completed",
+    "payment_method": "Credit Card",
+    "transaction_id": "txn_01ABC23DEFG45H"
+}
+
+###
+
+PUT http://localhost:8000/api/payment/2
+Content-Type: application/json
+
+{
+    "fuel_type": "diesel"
+}
+###
+
+GET http://localhost:8000/api/payment/2
+
+###
+DELETE http://localhost:8000/api/payment/1
+
+###
+
+
 
 
 
