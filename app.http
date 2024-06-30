@@ -238,15 +238,15 @@ DELETE http://localhost:8000/api/vehicle/1
 
 ###
 
-GET http://localhost:8000/api/vehicleSpec
+GET http://localhost:8000/api/vehicleSpecs
 
 ###
 
-POST http://localhost:8000/api/vehicleSpec
+POST http://localhost:8000/api/vehicleSpecs
 Content-Type: application/json
 
 {
-    "vehicle_id": 1,
+    "vehicle_id": 2,
     "manufacturer": "Toyota",
     "model": "Camry",
     "year": 2022,
@@ -260,18 +260,18 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:8000/api/vehicleSpec/1
+PUT http://localhost:8000/api/vehicleSpecs/2
 Content-Type: application/json
 
 {
-    "availability": false
+    "fuel_type": "diesel"
 }
 ###
 
-GET http://localhost:8000/api/vehicleSpec/1
+GET http://localhost:8000/api/vehicleSpecs/2
 
 ###
-DELETE http://localhost:8000/api/vehicleSpec/1
+DELETE http://localhost:8000/api/vehicleSpecs/1
 
 ###
 

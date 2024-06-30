@@ -1,60 +1,56 @@
 import { eq, sql } from "drizzle-orm";
 import db from "../drizzle/db";
 import {
-  TICity,
-  TSCity,
-  CitiesTable
+  TIVehicleSpec,
+  TSVehicleSpec,
+  VehicleSpecificationsTable
 } from "../drizzle/schema";
 
-export const CityService = async (limit?: number): Promise<TSCity[] | null> => {
+export const VehicleSpecificationsService = async (limit?: number): Promise<TSVehicleSpec[] | null> => {
   if (limit) {
-    return await db.query.CitiesTable.findMany({
+    return await db.query.VehicleSpecificationsTable.findMany({
       limit: limit,
     });
   }
-  return await db.query.CitiesTable.findMany();
+  return await db.query.VehicleSpecificationsTable.findMany();
 };
 
-export const getCityService = async (
+export const getVehicleSpecificationsService = async (
   id: number
-): Promise<TICity | undefined> => {
-  return await db.query.CitiesTable.findFirst({
-    where: eq(CitiesTable.id, id),
+): Promise<TIVehicleSpec | undefined> => {
+  return await db.query.VehicleSpecificationsTable.findFirst({
+    where: eq(VehicleSpecificationsTable.id, id),
   });
 };
 
-export const createCityService = async (City: TICity) => {
-  await db.insert(CitiesTable).values(City);
-  return "City created successfully";
+export const createVehicleSpecificationsService = async (VehicleSpec: TIVehicleSpec) => {
+  await db.insert(VehicleSpecificationsTable).values(VehicleSpec);
+  return "VehicleSpec created successfully";
 };
 
-export const updateCityService = async (id: number, City: TICity) => {
-  await db.update(CitiesTable).set(City).where(eq(CitiesTable.id, id));
-  return "City updated successfully";
+export const updateVehicleSpecificationsService = async (id: number, VehicleSpec: TIVehicleSpec) => {
+  await db.update(VehicleSpecificationsTable).set(VehicleSpec).where(eq(VehicleSpecificationsTable.id, id));
+  return "VehicleSpec updated successfully";
 };
 
-export const deleteCityService = async (id: number) => {
-  await db.delete(CitiesTable).where(eq(CitiesTable.id, id));
-  return "City deleted successfully";
+export const deleteVehicleSpecificationsService = async (id: number) => {
+  await db.delete(VehicleSpecificationsTable).where(eq(VehicleSpecificationsTable.id, id));
+  return "VehicleSpec deleted successfully";
 };
 
-export const getMoreCityInfoService = async (id: number) => {
-  return await db.query.CitiesTable.findMany({
+export const getMoreVehicleSpecificationsInfoService = async (id: number) => {
+  return await db.query.VehicleSpecificationsTable.findMany({
     columns: {
-      address: false
+     id: false,
     },
     with: {
-      state: {
-        columns: {
-          name: true
-        },
-        with: {
-          city: {
-            columns: {
-              name: true,
-              restaurant: true
-            }
-          }
+      vehicles: {
+        columns: 
+        {
+          availability:true,
+          rental_rate: true,
+          updated_at:true
+
         }
       }
     },
