@@ -48,7 +48,7 @@ export const  BookingsTable = pgTable("booking", {
     vehicle_id: integer('vehicle_id').notNull().references(() => VehiclesTable.id, { onDelete: "cascade" }),
     location_id: integer('location_id').notNull().references(() => LocationBranchTable.id, { onDelete: "cascade" }),
     booking_date: timestamp('booking_date').defaultNow(),
-    return_date: timestamp('return_date').notNull(),
+    return_date: timestamp('return_date').defaultNow(),
    total_amount: decimal('total_amount', { precision: 10, scale: 2 }).notNull(),
     booking_status: varchar('booking_status', {length: 20}).default('pending'),
     created_at: timestamp('created_at').defaultNow(),

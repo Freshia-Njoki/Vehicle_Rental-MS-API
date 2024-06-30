@@ -21,19 +21,19 @@ export const getPaymentService = async (
   });
 };
 
-export const createPaymentService = async (menu: TIPayment) => {
-  await db.insert(PaymentsTable).values(menu);
-  return "menu created successfully";
+export const createPaymentService = async (payment: TIPayment) => {
+  await db.insert(PaymentsTable).values(payment);
+  return "payment created successfully";
 };
 
 export const updatePaymentService = async (id: number, payment: TIPayment) => {
   await db.update(PaymentsTable).set(payment).where(eq(PaymentsTable.id, id));
-  return "menu updated successfully";
+  return "payment updated successfully";
 };
 
 export const deletePaymentService = async (id: number) => {
   await db.delete(PaymentsTable).where(eq(PaymentsTable.id, id));
-  return "menu deleted successfully";
+  return "payment deleted successfully";
 };
 
 // export const getActivepaymentsService = async (): Promise<TSPayment[] | null> => {

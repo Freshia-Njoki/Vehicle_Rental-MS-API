@@ -60,35 +60,37 @@ Content-Type: application/json
 
 
 ###
+GET http://localhost:8000/api/booking
+###
 
 POST http://localhost:8000/api/booking
 Content-Type: application/json
 
 {
- 
     "user_id": 1,
     "vehicle_id": 2,
-    "location_id": 1,
+    "location_id": 2,
     "total_amount": 89.97,
     "booking_status": "confirmed"
 }
 ###
-DELETE http://localhost:8000/api/booking/1
+
+GET http://localhost:8000/api/booking/6
+
+###
+DELETE http://localhost:8000/api/booking/6
+
 
 ###
 
-GET http://localhost:8000/api/booking
+GET http://localhost:8000/api/payment
 
 ###
-GET http://localhost:8000/api/booking/1
-
-###
-
-POST http://localhost:8000/api/payments
+POST http://localhost:8000/api/payment
 Content-Type: application/json
 
 {
-     "booking_id": 1,
+     "booking_id": 7,
     "amount": 89.97,
     "payment_status": "Completed",
     "payment_method": "Credit Card",
@@ -97,22 +99,20 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:8000/api/payments/1
+PUT http://localhost:8000/api/payment/3
 Content-Type: application/json
 
 {
-    "name": "USAA"
+     "amount": 90
 }
 ###
 
-GET http://localhost:8000/api/payments
+
+
+GET http://localhost:8000/api/payment/3
 
 ###
-
-GET http://localhost:8000/api/payments/1
-
-###
-DELETE http://localhost:8000/api/payments/1
+DELETE http://localhost:8000/api/payment/4
 
 ###
 GET http://localhost:8000/api/customerSupportTickets
