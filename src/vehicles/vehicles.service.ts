@@ -1,41 +1,41 @@
 import { eq } from "drizzle-orm";
 import db from "../drizzle/db";
-import { TICategory, TSCategory, CategoryTable, MenuItemsTable } from "../drizzle/schema";
+import { TIVehicle, TSVehicle, VehiclesTable } from "../drizzle/schema";
 
-export const CategoryService = async (limit?: number): Promise<TSCategory[] | null> => {
+export const vehicleService = async (limit?: number): Promise<TSVehicle[] | null> => {
     if (limit) {
-        return await db.query.CategoryTable.findMany({
+        return await db.query.VehiclesTable.findMany({
             limit: limit
         });
     }
-    return await db.query.CategoryTable.findMany();
+    return await db.query.VehiclesTable.findMany();
 }
 
-export const getCategoryService = async (id: number): Promise<TICategory | undefined> => {
-    return await db.query.CategoryTable.findFirst({
-        where: eq(CategoryTable.id, id)
+export const getVehicleService = async (id: number): Promise<TIVehicle | undefined> => {
+    return await db.query.VehiclesTable.findFirst({
+        where: eq(VehiclesTable.id, id)
     })
 }
 
-export const createCategoryService = async (Category: TICategory) => {
-    await db.insert(CategoryTable).values(Category)
-    return "Category created successfully";
+export const createVehicleService = async (Vehicle: TIVehicle) => {
+    await db.insert(VehiclesTable).values(Vehicle)
+    return "Vehicle created successfully";
 }
 
-export const updateCategoryService = async (id: number, Category: TICategory) => {
-    await db.update(CategoryTable).set(Category).where(eq(CategoryTable.id, id))
-    return "Category updated successfully";
+export const updateVehicleService = async (id: number, Vehicle: TIVehicle) => {
+    await db.update(VehiclesTable).set(Vehicle).where(eq(VehiclesTable.id, id))
+    return "Vehicle updated successfully";
 }
 
-export const deleteCategoryService = async (id: number) => {
-    await db.delete(CategoryTable).where(eq(CategoryTable.id, id))
-    return "Category deleted successfully";
+export const deleteVehicleService = async (id: number) => {
+    await db.delete(VehiclesTable).where(eq(VehiclesTable.id, id))
+    return "Vehicle deleted successfully";
 }
 
 
-export const filterCategoryService = async (id: number) => {
-    return await db.select({
-        CategoryName: CategoryTable.name,
-        MenuItem: MenuItemsTable.description
-    }).from(CategoryTable).rightJoin(MenuItemsTable, eq(CategoryTable.id, MenuItemsTable.category_id))
-}
+// export const filterVehicleService = async (id: number) => {
+//     return await db.select({
+//         VehicleName: VehiclesTable.name,
+//         MenuItem: MenuItemsTable.description
+//     }).from(VehiclesTable).rightJoin(MenuItemsTable, eq(VehiclesTable.id, MenuItemsTable.Vehicle_id))
+// }

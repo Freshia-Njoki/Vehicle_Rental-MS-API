@@ -1,15 +1,15 @@
 import { Context } from "hono";
-import { CategoryService, getCategoryService, createCategoryService, updateCategoryService, deleteCategoryService, filterCategoryService } from "./vehicles.service";
+import { vehicleService, getVehicleService, createVehicleService, updateVehicleService, deleteVehicleService } from "./vehicles.service";
 
-export const listCategories = async (c: Context) => {
+export const listVehicles = async (c: Context) => {
     try {
-        //limit the number of Categorys to be returned
+        //limit the number of Vehicles to be returned
 
         const limit = Number(c.req.query('limit'))
 
-        const data = await CategoryService(limit);
+        const data = await vehicleService(limit);
         if (data == null || data.length == 0) {
-            return c.text("Category not found", 404)
+            return c.text("Vehicle not found", 404)
         }
         return c.json(data, 200);
     } catch (error: any) {
@@ -17,43 +17,43 @@ export const listCategories = async (c: Context) => {
     }
 }
 
-export const getCategory = async (c: Context) => {
+export const getVehicle = async (c: Context) => {
     const id = parseInt(c.req.param("id"));
     if (isNaN(id)) return c.text("Invalid ID", 400);
 
-    const Category = await getCategoryService(id);
-    if (Category == undefined) {
-        return c.text("Category not found", 404);
+    const Vehicle = await getVehicleService(id);
+    if (Vehicle == undefined) {
+        return c.text("Vehicle not found", 404);
     }
-    return c.json(Category, 200);
+    return c.json(Vehicle, 200);
 }
-export const createCategory = async (c: Context) => {
+export const createVehicle = async (c: Context) => {
     try {
-        const Category = await c.req.json();
-        const createdCategory = await createCategoryService(Category);
+        const Vehicle = await c.req.json();
+        const createdVehicle = await createVehicleService(Vehicle);
 
 
-        if (!createdCategory) return c.text("Category not created", 404);
-        return c.json({ msg: createdCategory }, 201);
+        if (!createdVehicle) return c.text("Vehicle not created", 404);
+        return c.json({ msg: createdVehicle }, 201);
 
     } catch (error: any) {
         return c.json({ error: error?.message }, 400)
     }
 }
 
-export const updateCategory = async (c: Context) => {
+export const updateVehicle = async (c: Context) => {
     const id = parseInt(c.req.param("id"));
     if (isNaN(id)) return c.text("Invalid ID", 400);
 
-    const Category = await c.req.json();
+    const Vehicle = await c.req.json();
     try {
-        // search for the Category
-        const searchedCategory = await getCategoryService(id);
-        if (searchedCategory == undefined) return c.text("Category not found", 404);
+        // search for the Vehicle
+        const searchedVehicle = await getVehicleService(id);
+        if (searchedVehicle == undefined) return c.text("Vehicle not found", 404);
         // get the data and update it
-        const res = await updateCategoryService(id, Category);
+        const res = await updateVehicleService(id, Vehicle);
         // return a success message
-        if (!res) return c.text("Category not updated", 404);
+        if (!res) return c.text("Vehicle not updated", 404);
 
         return c.json({ msg: res }, 201);
     } catch (error: any) {
@@ -61,17 +61,17 @@ export const updateCategory = async (c: Context) => {
     }
 }
 
-export const deleteCategory = async (c: Context) => {
+export const deleteVehicle = async (c: Context) => {
     const id = Number(c.req.param("id"));
     if (isNaN(id)) return c.text("Invalid ID", 400);
 
     try {
-        //search for the Category
-        const Category = await getCategoryService(id);
-        if (Category == undefined) return c.text("Category not found", 404);
-        //deleting the Category
-        const res = await deleteCategoryService(id);
-        if (!res) return c.text("Category not deleted", 404);
+        //search for the Vehicle
+        const Vehicle = await getVehicleService(id);
+        if (Vehicle == undefined) return c.text("Vehicle not found", 404);
+        //deleting the Vehicle
+        const res = await deleteVehicleService(id);
+        if (!res) return c.text("Vehicle not deleted", 404);
 
         return c.json({ msg: res }, 201);
     } catch (error: any) {
@@ -79,13 +79,13 @@ export const deleteCategory = async (c: Context) => {
     }
 }
 
-export const filterCategoryInfo = async(c:Context) => {
-    const id = parseInt(c.req.param("id"));
-    if (isNaN(id)) return c.text("Invalid ID", 400);
+// export const filterVehicleInfo = async(c:Context) => {
+//     const id = parseInt(c.req.param("id"));
+//     if (isNaN(id)) return c.text("Invalid ID", 400);
 
-    const categoryInfo = await filterCategoryService(id);
-    if (categoryInfo == undefined) {
-        return c.text("Order not found", 404);
-    }
-    return c.json(categoryInfo, 200);
-}
+//     const VehicleInfo = await filterVehicleService(id);
+//     if (VehicleInfo == undefined) {
+//         return c.text("Order not found", 404);
+//     }
+//     return c.json(VehicleInfo, 200);
+// }

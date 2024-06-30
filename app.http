@@ -67,7 +67,7 @@ Content-Type: application/json
 {
  
     "user_id": 1,
-    "vehicle_id": 1,
+    "vehicle_id": 2,
     "location_id": 1,
     "total_amount": 89.97,
     "booking_status": "confirmed"
@@ -78,6 +78,9 @@ DELETE http://localhost:8000/api/booking/1
 ###
 
 GET http://localhost:8000/api/booking
+
+###
+GET http://localhost:8000/api/booking/1
 
 ###
 
@@ -103,6 +106,10 @@ Content-Type: application/json
 ###
 
 GET http://localhost:8000/api/payments
+
+###
+
+GET http://localhost:8000/api/payments/1
 
 ###
 DELETE http://localhost:8000/api/payments/1
@@ -162,7 +169,6 @@ DELETE http://localhost:8000/api/locationBranch/1
 
 ###
 
-
 GET http://localhost:8000/api/fleet
 
 ###
@@ -171,7 +177,7 @@ POST http://localhost:8000/api/fleet
 Content-Type: application/json
 
 {
-    "vehicle_id": 1,
+    "vehicle_id": 2,
     "depreciation_rate": 0.15,
     "current_value": 15000.00,
     "maintenance_cost": 200.00,
@@ -180,7 +186,18 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:8000/api/fleet/1
+
+GET http://localhost:8000/api/fleet/2
+###
+
+GET http://localhost:8000/api/filterFleetInfo/1
+###
+
+GET http://localhost:8000/api/fleetInfo
+###
+
+
+PUT http://localhost:8000/api/fleet/2
 Content-Type: application/json
 
 {
@@ -189,7 +206,76 @@ Content-Type: application/json
 ###
 DELETE http://localhost:8000/api/fleet/1
 
+
 ###
+
+GET http://localhost:8000/api/vehicle
+
+###
+
+POST http://localhost:8000/api/vehicle
+Content-Type: application/json
+
+{
+      "rental_rate": 99.99,
+    "availability": true
+}
+
+###
+
+PUT http://localhost:8000/api/vehicle/1
+Content-Type: application/json
+
+{
+    "availability": false
+}
+###
+
+GET http://localhost:8000/api/vehicle/1
+
+###
+DELETE http://localhost:8000/api/vehicle/1
+
+###
+
+GET http://localhost:8000/api/vehicleSpec
+
+###
+
+POST http://localhost:8000/api/vehicleSpec
+Content-Type: application/json
+
+{
+    "vehicle_id": 1,
+    "manufacturer": "Toyota",
+    "model": "Camry",
+    "year": 2022,
+    "fuel_type": "Petrol",
+    "engine_capacity": "2.5L",
+    "transmission": "Automatic",
+    "seating_capacity": 5,
+    "color": "Red",
+    "features": "Air Conditioning, Power Steering, Bluetooth, Cruise Control"
+}
+
+###
+
+PUT http://localhost:8000/api/vehicleSpec/1
+Content-Type: application/json
+
+{
+    "availability": false
+}
+###
+
+GET http://localhost:8000/api/vehicleSpec/1
+
+###
+DELETE http://localhost:8000/api/vehicleSpec/1
+
+###
+
+
 
 
 
