@@ -6,19 +6,19 @@ import { adminRoleAuth,userRoleAuth, userOrAdminRoleAuth } from "../middleware/b
 export const locationBranchRouter = new Hono();
 
 //get all locationBranchs      api/locationBranchs
-locationBranchRouter.get("/locationBranchs",listLocationBranchs);
+locationBranchRouter.get("/locationBranch",listLocationBranchs);
 //get a single locationBranch    api/locationBranchs/1
-locationBranchRouter.get("/locationBranchs/:id",getLocationBranch)
+locationBranchRouter.get("/locationBranch/:id",getLocationBranch)
 // create a locationBranch 
-locationBranchRouter.post("/locationBranchs", zValidator('json', locationSchema, (result, c) => {
+locationBranchRouter.post("/locationBranch", zValidator('json', locationSchema, (result, c) => {
     if (!result.success) {
         return c.json(result.error, 400)
     }
 }), createLocationBranch)
 //update a locationBranch
-locationBranchRouter.put("/locationBranchs/:id", updateLocationBranch)
+locationBranchRouter.put("/locationBranch/:id", updateLocationBranch)
 
-locationBranchRouter.delete("/locationBranchs/:id",deleteLocationBranch)
+locationBranchRouter.delete("/locationBranch/:id",deleteLocationBranch)
 locationBranchRouter.get("/locationBranchsInfo",getLocationBranchInfo)
 
 //https:domai.com/api/locationBranchs?limit=10

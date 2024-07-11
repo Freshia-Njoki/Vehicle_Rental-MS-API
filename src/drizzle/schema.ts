@@ -97,7 +97,16 @@ export const  FleetTable = pgTable("fleet", {
     created_at: timestamp('created_at').defaultNow(),
     updated_at: timestamp('updated_at').defaultNow(), 
 })
-
+export const ContactUsSchema = pgTable("contact_us", {
+    id: serial('id').primaryKey(),
+    first_name: varchar('first_name', {length: 100}).notNull(),
+    last_name: varchar('last_name', {length: 100}).notNull(),
+    email: varchar('email', {length: 255}).notNull(),
+    phone_number: varchar('phone_number', {length: 20}).notNull(),
+    message: text('message').notNull(),
+    created_at: timestamp('created_at').notNull().defaultNow(),
+});
+ 
 //Relations
 export const userRelations = relations(UsersTable, ({ one,many }) => ({
     auth: one(AuthTable, {

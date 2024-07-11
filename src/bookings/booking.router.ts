@@ -8,7 +8,7 @@ export const bookingRouter = new Hono();
 
 bookingRouter.get("/booking", listBooking);
 
-bookingRouter.get("/booking/:id", getBookings)
+bookingRouter.get("/booking/:id", userRoleAuth, getBookings)
 
 bookingRouter.post("/booking", zValidator('json', bookingSchema, (result, c) => {
     if (!result.success) {
@@ -16,7 +16,7 @@ bookingRouter.post("/booking", zValidator('json', bookingSchema, (result, c) => 
     }
 }), createBooking)
 
-bookingRouter.put("/booking/:id",  updateBooking)
+bookingRouter.put("/booking/:id", updateBooking)
 
 bookingRouter.delete("/booking/:id",  deleteBooking)
 // bookingRouter.get("/bookingInfo",userOrAdminRoleAuth, getMorebookingInfo)
