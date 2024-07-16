@@ -22,8 +22,8 @@ export const vehicleSpecSchema = z.object({
     fuel_type: z.string(),
     engine_capacity: z.string(),
     transmission: z.string(),
-    seating_capacity: z.number(), 
-    color: z.string(),
+    //seating_capacity: z.number(), 
+    //color: z.string(),
     features: z.string(),
 })
 
@@ -71,4 +71,12 @@ export const loginUserSchema = z.object({
 export const registerUserSchema = z.object({
     userId: z.number(),
     password: z.string()
+})
+
+export const contactSchema = z.object({
+    first_name: z.string(),
+    last_name: z.string(),
+    email: z.string(),
+    phone_number: z.string(),
+    message: z.string()
 })

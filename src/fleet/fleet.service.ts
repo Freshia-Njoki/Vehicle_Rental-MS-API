@@ -17,19 +17,19 @@ export const getFleetService = async (id: number): Promise<TIFleet | undefined> 
     })
 }
 
-export const createFleetService = async (Order: TIFleet) => {
-    await db.insert(FleetTable).values(Order)
-    return "Order created successfully";
+export const createFleetService = async (Fleet: TIFleet) => {
+    await db.insert(FleetTable).values(Fleet)
+    return "Fleet created successfully";
 }
 
-export const updateFleetService = async (id: number, Order: TIFleet) => {
-    await db.update(FleetTable).set(Order).where(eq(FleetTable.id, id))
-    return "Order updated successfully";
+export const updateFleetService = async (id: number, Fleet: TIFleet) => {
+    await db.update(FleetTable).set(Fleet).where(eq(FleetTable.id, id))
+    return "Fleet updated successfully";
 }
 
 export const deleteFleetService = async (id: number) => {
     await db.delete(FleetTable).where(eq(FleetTable.id, id))
-    return "Order deleted successfully";
+    return "Fleet deleted successfully";
 }
 
 

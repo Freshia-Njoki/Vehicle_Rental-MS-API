@@ -10,6 +10,7 @@
     "@hono/prometheus": "^1.0.1",
     "@hono/zod-validator": "^0.2.2",
     "@neondatabase/serverless": "^0.9.3",
+    "@types/stripe": "^8.0.417",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.31.1",
@@ -19,9 +20,11 @@
     "nodemailer": "^6.9.13",
     "prom-client": "^15.1.2",
     "rate-limiter-ts": "^1.0.7",
+    "stripe": "^16.2.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@stripe/stripe-js": "^4.1.0",
     "@types/bcrypt": "^5.0.2",
     "@types/ejs": "^3.1.5",
     "@types/node": "^20.11.17",

@@ -97,7 +97,7 @@ export const  FleetTable = pgTable("fleet", {
     created_at: timestamp('created_at').defaultNow(),
     updated_at: timestamp('updated_at').defaultNow(), 
 })
-export const ContactUsSchema = pgTable("contact_us", {
+export const ContactUsTable = pgTable("contact_us", {
     id: serial('id').primaryKey(),
     first_name: varchar('first_name', {length: 100}).notNull(),
     last_name: varchar('last_name', {length: 100}).notNull(),
@@ -192,4 +192,7 @@ export type TSLocationBranch = typeof LocationBranchTable.$inferSelect;
 
 export type TIFleet = typeof FleetTable.$inferInsert;
 export type TSFleet = typeof FleetTable.$inferSelect;
+
+export type TIContact= typeof FleetTable.$inferInsert;
+export type TSContact = typeof FleetTable.$inferSelect;
 

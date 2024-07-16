@@ -56,9 +56,9 @@ export const updateUser = async (c: Context) => {
         // return a success message
         if (!res) return c.text("User not updated", 404);
 
-        return c.json({ msg: res }, 201);
+        return c.json({ msg: res }, 200);
     } catch (error: any) {
-        return c.json({ error: error?.message }, 400)
+        return c.json({ error: error?.message }, 200) //seriously
     }
 }
 
@@ -74,7 +74,7 @@ export const deleteUser = async (c: Context) => {
         const res = await deleteUserService(id);
         if (!res) return c.text("User not deleted", 404);
 
-        return c.json({ msg: res }, 201);
+        return c.json({ msg: res }, 200);
     } catch (error: any) {
         return c.json({ error: error?.message }, 400)
     }

@@ -47,12 +47,12 @@ export const updateVehicle = async (c: Context) => {
 
     const Vehicle = await c.req.json();
     try {
-        // search for the Vehicle
+
         const searchedVehicle = await getVehicleService(id);
         if (searchedVehicle == undefined) return c.text("Vehicle not found", 404);
-        // get the data and update it
+   
         const res = await updateVehicleService(id, Vehicle);
-        // return a success message
+    
         if (!res) return c.text("Vehicle not updated", 404);
 
         return c.json({ msg: res }, 201);
@@ -66,14 +66,14 @@ export const deleteVehicle = async (c: Context) => {
     if (isNaN(id)) return c.text("Invalid ID", 400);
 
     try {
-        //search for the Vehicle
+        
         const Vehicle = await getVehicleService(id);
         if (Vehicle == undefined) return c.text("Vehicle not found", 404);
-        //deleting the Vehicle
+      
         const res = await deleteVehicleService(id);
         if (!res) return c.text("Vehicle not deleted", 404);
 
-        return c.json({ msg: res }, 201);
+        return c.json({ msg: res }, 200);
     } catch (error: any) {
         return c.json({ error: error?.message }, 400)
     }

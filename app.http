@@ -1,7 +1,7 @@
 
 GET http://localhost:8000/api/ok/
 
-
+users
 ###
 GET http://localhost:8000/api/
 
@@ -11,7 +11,7 @@ GET http://localhost:8000/api/users?limit=4
 
 ###
 
-GET http://localhost:8000/api/users
+GET http://localhost:8000/api/
 
 ###
 GET http://localhost:8000/api/users/2
@@ -30,7 +30,7 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:8000/api/users/2
+PUT http://localhost:8000/api/users/13
 Content-Type: application/json
 
 {
@@ -79,6 +79,7 @@ Content-Type: application/json
 
 GET http://localhost:8000/api/booking/7
 
+
 ###
 DELETE http://localhost:8000/api/booking/7
 
@@ -91,7 +92,7 @@ POST http://localhost:8000/api/payment
 Content-Type: application/json
 
 {
-     "booking_id": 7,
+     "booking_id": 8,
     "amount": 89.97,
     "payment_status": "Completed",
     "payment_method": "Credit Card",
@@ -100,7 +101,7 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:8000/api/payment/3
+PUT http://localhost:8000/api/payment/8
 Content-Type: application/json
 
 {
@@ -110,7 +111,7 @@ Content-Type: application/json
 
 
 
-GET http://localhost:8000/api/payment/3
+GET http://localhost:8000/api/payment/8
 
 ###
 DELETE http://localhost:8000/api/payment/4
@@ -254,8 +255,8 @@ Content-Type: application/json
     "fuel_type": "Petrol",
     "engine_capacity": "2.5L",
     "transmission": "Automatic",
-    "seating_capacity": 5,
-    "color": "Red",
+    //"seating_capacity": 5,
+    //"color": "Red",
     "features": "Air Conditioning, Power Steering, Bluetooth, Cruise Control"
 }
 
@@ -284,7 +285,7 @@ POST http://localhost:8000/api/payment
 Content-Type: application/json
 
 {
-      "booking_id": 1,
+      "booking_id": 8,
     "amount": 150.75,
     "payment_status": "Completed",
     "payment_method": "Credit Card",
@@ -293,7 +294,7 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:8000/api/payment/2
+PUT http://localhost:8000/api/payment/8
 Content-Type: application/json
 
 {
@@ -301,14 +302,14 @@ Content-Type: application/json
 }
 ###
 
-GET http://localhost:8000/api/payment/2
+GET http://localhost:8000/api/payment/8
 
 ###
 DELETE http://localhost:8000/api/payment/1
 
 ###
 
-
+POST http://localhost:8000/api/create-payment-intent
 
 
 

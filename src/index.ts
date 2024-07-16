@@ -1,5 +1,5 @@
 import { serve } from '@hono/node-server'
-import { Hono } from 'hono'
+import { Context, Hono } from 'hono'
 import "dotenv/config"
 import { logger } from 'hono/logger'
 import { csrf } from 'hono/csrf'
@@ -8,6 +8,8 @@ import { timeout } from 'hono/timeout'
 import { HTTPException } from 'hono/http-exception'
 import { prometheus } from '@hono/prometheus'
 import { html, raw } from 'hono/html'
+import {cors} from 'hono/cors'
+import stripe from "stripe"
 
 import { userRouter } from './users/users.router'
 import { bookingRouter} from './bookings/booking.router'
@@ -30,7 +32,7 @@ const { printMetrics, registerMetrics } = prometheus()
 
 app.use('*', registerMetrics)
 app.get('/metrics', printMetrics)
-  
+app.use(cors({ origin: "*"}))
 app.use(logger()) 
 app.use(csrf()) //prevents CSRF attacks by checking request headers.
 app.use(trimTrailingSlash()) //removes trailing slashes from the request URL
@@ -115,6 +117,25 @@ app.route("/", vehicleSpecRouter)
 app.route("/", paymentRouter)
 app.route("/", locationBranchRouter)
 
+const Stripe = new stripe('sk_test_51NVI3GJLwJLu0Jfmlcrdge2wdm5zJikJHiIKZ5pSO4u0hueTBXTx8ON4KOOAmeZUIUSTKpJynEZVQcFbw6meMC5800lOmB3FF0', {
+  apiVersion: '2024-06-20',
+});
+app.post("/create-payment-intent", async (c: Context) => {
+    try {
+      const paymentIntent = await Stripe.paymentIntents.create({
+        currency: "EUR",
+        amount: 1999,
+        automatic_payment_methods: { enabled: true },
+      });
+  
+      return c.json({
+        clientSecret: paymentIntent.client_secret,
+      });
+    } catch (e) {
+      console.error('error creating payment intent', e)
+      return c.json({error: 'Failed to create payment intent'}, 500)
+    }
+  });
 
 serve({
   fetch: app.fetch,
