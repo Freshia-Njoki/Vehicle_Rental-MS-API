@@ -3,21 +3,21 @@ import { listContact, getContact, createContact, updateContact, deleteContact } 
 import { zValidator } from "@hono/zod-validator";
 import { contactSchema } from "../validators";
 import { adminRoleAuth,userOrAdminRoleAuth,userRoleAuth } from "../middleware/bearAuth";
-export const ContactRouter = new Hono();
+export const contactRouter = new Hono();
 
 
-ContactRouter.get("/Contact", listContact);
+contactRouter.get("/contact", listContact);
 
-ContactRouter.get("/Contact/:id", userRoleAuth, getContact)
+contactRouter.get("/contact/:id", getContact)
 
-ContactRouter.post("/Contact", zValidator('json', contactSchema, (result, c) => {
+contactRouter.post("/contact", zValidator('json', contactSchema, (result, c) => {
     if (!result.success) {
         return c.json(result.error, 400)
     }
 }), createContact)
 
-ContactRouter.put("/Contact/:id", updateContact)
+contactRouter.put("/contact/:id", updateContact)
 
-ContactRouter.delete("/Contact/:id",  deleteContact)
-// ContactRouter.get("/ContactInfo",userOrAdminRoleAuth, getMoreContactInfo)
+contactRouter.delete("/contact/:id",  deleteContact)
+// ContactRouter.get("/contactInfo",userOrAdminRoleAuth, getMoreContactInfo)
 

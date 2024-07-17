@@ -31,5 +31,5 @@ export const authMiddleware = async (c: Context, next: Next, requiredRole: strin
 };
 
 export const adminRoleAuth = async (c: Context, next: Next) => await authMiddleware(c, next, "admin");
-export const userRoleAuth = async (c: Context, next: Next) => await authMiddleware(c, next, "user");
+export const userRoleAuth = async (c: Context, next: Next) => await authMiddleware(c, next, "user"); 
 export const userOrAdminRoleAuth = async (c: Context, next: Next) => await authMiddleware(c, next, "both");

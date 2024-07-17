@@ -193,6 +193,6 @@ export type TSLocationBranch = typeof LocationBranchTable.$inferSelect;
 export type TIFleet = typeof FleetTable.$inferInsert;
 export type TSFleet = typeof FleetTable.$inferSelect;
 
-export type TIContact= typeof FleetTable.$inferInsert;
-export type TSContact = typeof FleetTable.$inferSelect;
+export type TIContact= typeof ContactUsTable.$inferInsert;
+export type TSContact = typeof ContactUsTable.$inferSelect;
 

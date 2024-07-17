@@ -20,6 +20,7 @@ import { vehicleRouter } from './vehicles/vehicles.router'
 import { vehicleSpecRouter } from './vehicle Specifications/vehicleSpec.router'
 import { paymentRouter } from './payments/payment.router'
 import { locationBranchRouter } from './location and Branches/locationBranches.router'
+import { contactRouter } from './contactUs/contact.router'
 
 const app = new Hono().basePath('/api')
 
@@ -116,10 +117,12 @@ app.route("/", vehicleRouter)
 app.route("/", vehicleSpecRouter)
 app.route("/", paymentRouter)
 app.route("/", locationBranchRouter)
+app.route("/", contactRouter)
 
 const Stripe = new stripe('sk_test_51NVI3GJLwJLu0Jfmlcrdge2wdm5zJikJHiIKZ5pSO4u0hueTBXTx8ON4KOOAmeZUIUSTKpJynEZVQcFbw6meMC5800lOmB3FF0', {
   apiVersion: '2024-06-20',
 });
+
 app.post("/create-payment-intent", async (c: Context) => {
     try {
       const paymentIntent = await Stripe.paymentIntents.create({

@@ -3,20 +3,16 @@ import db from "../drizzle/db";
 import { TIContact, TSContact, ContactUsTable } from "../drizzle/schema";
 
 export const contactService = async (limit?: number): Promise<TSContact[] | null> => {
-    try {
-        if (limit) {
-            return await db.query.ContactUsTable.findMany({
-                limit: limit
-            });
-        }
-        return await db.query.ContactUsTable.findMany();
-    } catch (error) {
-        console.error("Error fetching contacts:", error);
-        return null;
+    if (limit) {
+        return await db.query.ContactUsTable.findMany({
+            limit: limit,
+        })
     }
+    return await db.query.ContactUsTable.findMany();
 };
 
-export const getContactService = async (id: number): Promise<TIContact> => {
+
+export const getContactService = async (id: number): Promise<TIContact | undefined> => {
     try {
         return await db.query.ContactUsTable.findFirst({
             where: eq(ContactUsTable.id, id)

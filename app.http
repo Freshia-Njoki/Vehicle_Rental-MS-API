@@ -45,7 +45,7 @@ POST http://localhost:8000/api/auth/register
 Content-Type: application/json
 
 {
-    "userId": 1,
+    "userId": 15,
     "password": "hashed_password_1"
 }
 
@@ -54,7 +54,7 @@ POST http://localhost:8000/api/auth/login
 Content-Type: application/json
 
 {
-    "userId": 1,
+    "userId": 15,
     "password": "hashed_password_1"
 }
 
@@ -306,6 +306,37 @@ GET http://localhost:8000/api/payment/8
 
 ###
 DELETE http://localhost:8000/api/payment/1
+
+###
+
+GET http://localhost:8000/api/contact
+
+###
+
+POST http://localhost:8000/api/contact
+Content-Type: application/json
+
+{
+      "first_name": "Freshia",
+    "last_name": "Njoki",
+    "email": "freshia@gmail.com",
+    "phone_number": "+2547 457 454 34",
+    "message": "happy yo be here"
+}
+
+###
+
+PUT http://localhost:8000/api/contact/1
+Content-Type: application/json
+
+{
+    "last_name": "Ruitha"
+}
+###
+
+GET http://localhost:8000/api/contact/1
+###
+DELETE http://localhost:8000/api/contact/1
 
 ###
 
