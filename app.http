@@ -1,7 +1,7 @@
 
 GET http://localhost:8000/api/ok/
 
-users
+
 ###
 GET http://localhost:8000/api/
 
@@ -11,7 +11,7 @@ GET http://localhost:8000/api/users?limit=4
 
 ###
 
-GET http://localhost:8000/api/
+GET http://localhost:8000/api/users
 
 ###
 GET http://localhost:8000/api/users/2
@@ -23,7 +23,7 @@ Content-Type: application/json
 
 {
     "full_name": "Jane Smith",
-    "email": "janesmithjh@example.com",
+    "email": "janesmiith@example.com",
     "contact_phone": "+0987654321",
     "address": "456 Oak Street",
     "role": "admin"
@@ -270,7 +270,7 @@ Content-Type: application/json
 }
 ###
 
-GET http://localhost:8000/api/vehicleSpecs/2
+GET http://localhost:8000/api/vehicleSpecs/39
 
 ###
 DELETE http://localhost:8000/api/vehicleSpecs/1
