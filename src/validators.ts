@@ -28,9 +28,10 @@ export const vehicleSpecSchema = z.object({
 })
 
 export const bookingSchema = z.object({
-    user_id: z.number(),
+    // user_id: z.number(),
     vehicle_id: z.number(),
-    location_id: z.number(),
+    contact: z.string(),
+    // location_id: z.number(),
     total_amount: z.number().multipleOf(0.01),
     booking_status: z.string()
 })
@@ -43,7 +44,7 @@ export const paymentsSchema = z.object({
     transaction_id: z.string()
 })
 export const customerSupportTicketSchema = z.object({
-    user_id: z.number(),
+    // user_id: z.number(),
     subject: z.string(),
     description: z.string(),
     status: z.string()
@@ -64,13 +65,15 @@ export const fleetSchema = z.object({
 })
 
 export const loginUserSchema = z.object({
-    userId: z.number(),
+    username: z.string(),
     password: z.string()
 })
 
 export const registerUserSchema = z.object({
     userId: z.number(),
-    password: z.string()
+    username: z.string(),
+    password: z.string(),
+    role: z.string().optional(),
 })
 
 export const contactSchema = z.object({

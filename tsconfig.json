@@ -15,7 +15,7 @@
   },
   "include": [
     "src/**/*"
-  ],
+, "../client/src/features"  ],
   "exclude": [
     "node_modules",
     "dist"

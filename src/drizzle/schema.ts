@@ -1,4 +1,4 @@
-import {pgTable,serial, text, varchar, integer, timestamp, boolean, decimal } from "drizzle-orm/pg-core";
+import {pgTable,serial, text, varchar, integer, timestamp, boolean, decimal, pgEnum } from "drizzle-orm/pg-core";
 import { relations } from 'drizzle-orm'
 
 export const UsersTable = pgTable("user", {
@@ -7,19 +7,21 @@ export const UsersTable = pgTable("user", {
     email: varchar("email", {length: 100}).unique().notNull(),
     contact_phone: varchar('contact_phone', {length: 20}),
     address: varchar('address', {length: 255}),
-    role: varchar('role', {length: 20}).default('user'),
+    // role: varchar('role', {length: 20}).default('user'),
     created_at: timestamp('created_at').defaultNow(),
     updated_at: timestamp('updated_at').defaultNow(), 
 })
+export const roleEnum = pgEnum("role", ["admin", "user"])
 
 export const AuthTable = pgTable("auth", {
     id: serial('id').primaryKey(),
     user_id: integer('user_id').notNull().references(() => UsersTable.id, { onDelete: "cascade" }),
+    username: varchar("username", { length: 100 }),
     password: varchar('password', { length: 255}).notNull(),
     created_at: timestamp('created_at').defaultNow(),
-    updated_at: timestamp('updated_at').defaultNow(), 
+    updated_at: timestamp('updated_at').defaultNow(),
+     role: roleEnum("role").default("user")
 })
-
 export const VehiclesTable = pgTable("vehicles", {
     id: serial('id').primaryKey(),
     rental_rate: decimal('rental_rate', { precision: 10, scale: 2 }).notNull(),
@@ -44,10 +46,11 @@ export const  VehicleSpecificationsTable = pgTable("vehicleSpec", {
 
 export const  BookingsTable = pgTable("booking", {
     id: serial('id').primaryKey(),
-    user_id: integer('user_id').notNull().references(() => UsersTable.id, { onDelete: "cascade" }),
+    user_id: integer('user_id').references(() => UsersTable.id, { onDelete: "cascade" }),
     vehicle_id: integer('vehicle_id').notNull().references(() => VehiclesTable.id, { onDelete: "cascade" }),
-    location_id: integer('location_id').notNull().references(() => LocationBranchTable.id, { onDelete: "cascade" }),
+    location_id: integer('location_id').references(() => LocationBranchTable.id, { onDelete: "cascade" }),
     booking_date: timestamp('booking_date').defaultNow(),
+    contact:varchar('contact', {length: 50}),
     return_date: timestamp('return_date').defaultNow(),
    total_amount: decimal('total_amount', { precision: 10, scale: 2 }).notNull(),
     booking_status: varchar('booking_status', {length: 20}).default('pending'),
@@ -69,7 +72,7 @@ export const  PaymentsTable = pgTable("payments", {
   
 export const  CustomerSupportTicketsTable = pgTable("customerSupportTickets", {
     id: serial('id').primaryKey(),
-    user_id: integer('user_id').notNull().references(() => UsersTable.id, { onDelete: "cascade" }),
+    user_id: integer('user_id').references(() => UsersTable.id, { onDelete: "cascade" }),
     subject: varchar('subject', { length: 255}).notNull(),
     description: text('description').notNull(),
     status: varchar('status', {length: 20}).default("open"),
@@ -117,8 +120,11 @@ export const userRelations = relations(UsersTable, ({ one,many }) => ({
     customerSupportTicket: many(CustomerSupportTicketsTable)
     
 }))
-export const authRelations = relations(AuthTable, ({ many }) => ({
-    user: many(UsersTable)
+export const authRelations = relations(AuthTable, ({ one }) => ({
+    user: one(UsersTable, {
+        fields: [AuthTable.user_id],
+        references: [UsersTable.id]
+    })
 }))
 
 export const vehiclesRelations = relations(VehiclesTable, ({ one,many }) => ({
