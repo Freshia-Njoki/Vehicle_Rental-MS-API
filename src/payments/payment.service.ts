@@ -69,8 +69,7 @@ export async function calculateRevenueFromPayments():Promise<Irevenue> {
   .from(PaymentsTable)
   .where(sql`${PaymentsTable.payment_status} = ${'Completed'}`);
 
-// Assuming revenueResult is an array with a single object containing the 'revenue' key
-const revenue = revenueResult[0]?.revenue || 0;
+const revenue = Number(revenueResult[0]?.revenue || 0);
 return {revenue};
 }
 

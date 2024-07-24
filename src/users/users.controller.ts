@@ -1,6 +1,6 @@
 
 import { Context } from "hono";
-import { usersService, getUserService, createUserService, updateUserService, deleteUserService,getMoreUsersInfoService } from "./users.service";
+import { usersService, getUserService, createUserService, updateUserService, deleteUserService,getMoreUsersInfoService, getTotalUsers } from "./users.service";
 
 export const listUsers = async (c: Context) => {
     try {
@@ -89,3 +89,13 @@ export const getMoreUsersInfo = async(c:Context) => {
     }
     return c.json(usersInfo, 200);
 }
+
+export async function getTotalUsersController(c: Context) {
+    try {
+        const totalUsers = await getTotalUsers();
+        return c.json(totalUsers);
+      } catch (error) {
+        console.error({ message: 'Failed to fetch total users', error });
+        return c.json({ message: 'Failed to fetch total users' }, 500);
+      }
+  }

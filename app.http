@@ -347,6 +347,9 @@ POST http://localhost:8000/api/create-payment-intent
 ###
 GET  http://localhost:8000/api/revenue/payments
 
+###
+GET http://localhost:8000/api/users/total
+
 
 
 

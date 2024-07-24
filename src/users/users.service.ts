@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import db from "../drizzle/db";
 import { TIUser, TSUser, UsersTable } from "../drizzle/schema";
 
@@ -56,3 +56,19 @@ export const getMoreUsersInfoService = async () => {
         },
 })
 }
+
+interface IUser {
+    user: number;
+  }
+
+export async function getTotalUsers(): Promise<IUser> {
+      try {
+        const result = await db.execute(sql`SELECT COUNT(*) AS totalUsers FROM "user"`);
+        const totalUsers = Number(result.rows[0]?.totalUsers) || 0;
+       return { user: totalUsers };
+      } catch (error) {
+          console.error("an error occurred", error)
+        throw new Error('Error fetching total users')
+      }
+   
+  }
