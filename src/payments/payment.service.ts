@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import db from "../drizzle/db";
 import { TIPayment, TSPayment, PaymentsTable } from "../drizzle/schema";
 
@@ -56,3 +56,21 @@ export const getMorePaymentInfoService = async () => {
     },
   });
 };
+
+interface Irevenue {
+  revenue: number
+}
+
+export async function calculateRevenueFromPayments():Promise<Irevenue> {
+  const revenueResult = await db
+  .select({
+    revenue: sql`SUM(${PaymentsTable.amount})`
+  })
+  .from(PaymentsTable)
+  .where(sql`${PaymentsTable.payment_status} = ${'Completed'}`);
+
+// Assuming revenueResult is an array with a single object containing the 'revenue' key
+const revenue = revenueResult[0]?.revenue || 0;
+return {revenue};
+}
+

@@ -344,6 +344,9 @@ DELETE http://localhost:8000/api/contact/1
 
 POST http://localhost:8000/api/create-payment-intent
 
+###
+GET  http://localhost:8000/api/revenue/payments
+
 
 
 

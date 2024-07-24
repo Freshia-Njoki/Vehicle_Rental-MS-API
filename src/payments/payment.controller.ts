@@ -1,5 +1,5 @@
 import { Context } from "hono";
-import { paymentService, getPaymentService, createPaymentService, updatePaymentService, deletePaymentService, getMorePaymentInfoService } from "./payment.service";
+import { paymentService, getPaymentService, createPaymentService, updatePaymentService, deletePaymentService, getMorePaymentInfoService, calculateRevenueFromPayments } from "./payment.service";
 
 export const listPayment = async (c: Context) => {
     try {
@@ -94,3 +94,13 @@ export const getMorePaymentInfo = async(c:Context) => {
     }
     return c.json(paymentInfo, 200);
 }
+
+export async function getRevenueFromPayments(c:Context) {
+    try {
+      const revenue = await calculateRevenueFromPayments();
+      return c.json( revenue );
+    } catch (error) {
+      console.error('Error fetching revenue from payments:', error);
+     
+    }
+  }

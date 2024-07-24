@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { listPayment, getPayment, createPayment, updatePayment, deletePayment, getMorePaymentInfo} from "./payment.controller"
+import { listPayment, getPayment, createPayment, updatePayment, deletePayment, getRevenueFromPayments, getMorePaymentInfo} from "./payment.controller"
 import { zValidator } from "@hono/zod-validator";
 import { paymentsSchema } from "../validators";
 import { adminRoleAuth,userOrAdminRoleAuth } from "../middleware/bearAuth";
@@ -21,5 +21,6 @@ paymentRouter.put("/payment/:id", updatePayment)
 paymentRouter.delete("/payment/:id",deletePayment)
 // PaymentRouter.get("/activepayments",userOrAdminRoleAuth, listActivepayments)
 paymentRouter.get("/PaymentInfo", getMorePaymentInfo)
+paymentRouter.get('/revenue/payments', getRevenueFromPayments);
 
 //https:domai.com/api/payment?limit=10
